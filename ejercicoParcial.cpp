@@ -6,10 +6,7 @@
 #include "Cliente.h"
 #include "Empleado.h"
 #include "Marca.h"
-#include "Producto.h"
-#include "Proveedor.h"
-#include "Compra.h"
-#include "Compra_detalle.h"
+#include "Productos.h"
 using namespace std;
 
 void menuPrincipal() {
@@ -26,7 +23,7 @@ void menuAdministracion() {
 	cout << "2.Clientes" << endl;
 	cout << "3.Empleados" << endl;
 	cout << "4.Marcas" << endl;
-	cout << "5.Producto" << endl;
+	cout << "5.Productos" << endl;
 	cout << "6.Proveedores" << endl;
 	cout << "7.Compras" << endl;
 }
@@ -360,7 +357,7 @@ void menuMarcas(){
 	system("pause");
 }
 
-void menuProducto(){
+void menuProductos(){
 	string producto, descripcion, fecha_ingreso;
 	int idMarca = 0, idProducto = 0, existencia = 0, opP = 0;
 	float precio_costo = 0.0, precio_venta = 0.0;
@@ -368,7 +365,7 @@ void menuProducto(){
 	do {
 		opP = 0;
 		system("cls");
-		cout << "Catalogo de Producto" << endl;
+		cout << "Catalogo de productos" << endl;
 		cout << "1.Ver Registro" << endl;
 		cout << "2.Crear" << endl;
 		cout << "3.Editar registro" << endl;
@@ -379,7 +376,7 @@ void menuProducto(){
 		if (opP == 1) {
 			system("cls");
 			cout << "<<<<<Ver registros>>>>>" << endl;
-			Producto Obj = Producto();
+			Productos Obj = Productos();
 			Obj.leer();
 			system("pause");
 		}
@@ -391,8 +388,8 @@ void menuProducto(){
 			cout << "Ingresa Descripcion del Producto" << endl;
 			cin >> descripcion;
 
-			Marca M = Marca();
-			M.leer();
+			Productos Obj1 = Productos();
+			Obj1.leer();
 
 			cout << "ingresa el id de la marca del Producto" << endl;
 			cin >> idMarca;
@@ -406,55 +403,34 @@ void menuProducto(){
 			cin >> existencia;
 
 
-			Producto Obj = Producto(idProducto,producto,descripcion,fecha_ingreso,idMarca,existencia,precio_costo,precio_venta);
+			Productos Obj = Productos(idProducto,producto,descripcion,fecha_ingreso,idMarca,existencia,precio_costo,precio_venta);
 			Obj.crear();
 			system("pause");
 		}
 		if (opP == 3) {
 
-			system("cls");
-			Producto Obj = Producto();
+			/*system("cls");
+			Puesto Obj = Puesto();
 			Obj.leer();
 
-			cout << "<<<<<Editar Producto" << endl;
+			cout << "<<<<<Editar Puesto" << endl;
 			cout << "Ingresa el id del puesto" << endl;
-			cin >> idProducto;
-			cout << "Ingresa el nombre del Producto" << endl;
-			cin >> producto;
-			cout << "Ingresa Descripcion del Producto" << endl;
-			cin >> descripcion;
-
-			Marca M = Marca();
-			M.leer();
-
-			cout << "ingresa el id de la marca del Producto" << endl;
-			cin >> idMarca;
-			cout << "Ingresa la fecha de ingreso año/mes/dia del Producto" << endl;
-			cin >> fecha_ingreso;
-			cout << "ingresa el precio costo del Producto" << endl;
-			cin >> precio_costo;
-			cout << "ingresa el precio venta del Producto" << endl;
-			cin >> precio_venta;
-			cout << "ingresa la existencia del Producto" << endl;
-			cin >> existencia;
-
-
-			Producto Obj2 = Producto(idProducto, producto, descripcion, fecha_ingreso, idMarca, existencia, precio_costo, precio_venta);
-			Obj2.actualizar();
-			system("pause");
-
-
-			
+			cin >> idpuestos;
+			cout << "Ingresa el nombre del puesto" << endl;
+			cin >> puesto;
+			Puesto Obj = Puesto(idpuestos, puesto);
+			Obj.actualizar();
+			system("pause");*/
 		}
 		if (opP == 4) {
 
-			Producto Obj = Producto();
+		/*	Puesto Obj = Puesto();
 			Obj.leer();
-			cout << "<<<<<Eliminar Producto" << endl;
-			cout << "Ingresa el Codigo del Producto a eliminar" << endl;
-			cin >> idProducto;
-			Producto Obj2 = Producto(idProducto, producto, descripcion, fecha_ingreso, idMarca, existencia, precio_costo, precio_venta);
-			Obj2.eliminar();
+			cout << "<<<<<Eliminar Puesto" << endl;
+			cout << "Ingresa el Codigo del puesto a eliminar" << endl;
+			cin >> idpuestos;
+			Puesto Obj = Puesto(idpuestos, puesto);
+			Obj.eliminar();*/
 		}
 
 	} while (opP != 5);
@@ -463,210 +439,7 @@ void menuProducto(){
 
 }
 
-void menuProveedores(){
-	string proveedor, nit, direccion, telefono;
-	int idProveedor = 0, opP = 0;
-	do {
-		opP = 0;
-		system("cls");
-		cout << "Catalogo de Proveedores" << endl;
-		cout << "1.Ver Registro" << endl;
-		cout << "2.Crear" << endl;
-		cout << "3.Editar registro" << endl;
-		cout << "4.Eliminar registro" << endl;
-		cout << "5.Salir al menu principal" << endl;
-		cin >> opP;
-
-		if (opP == 1) {
-			system("cls");
-			cout << "<<<<<Ver registros>>>>>" << endl;
-			Proveedor Pue = Proveedor();
-			Pue.leer();
-			system("pause");
-		}
-		if (opP == 2) {
-			system("cls");
-			cout << "<<<<<Ingresar Proveedor" << endl;
-			cout << "Ingresa el nombre del proveedor" << endl;
-			cin >> proveedor;
-			cout << "Ingresa el nit del proveedor" << endl;
-			cin >> nit;
-			cout << "Ingresa la direccion del proveedor" << endl;
-			cin >> direccion;
-			cout << "Ingresa el telefono del proveedor" << endl;
-			cin >> telefono;
-
-			Proveedor obj = Proveedor(idProveedor,proveedor,nit,direccion,telefono);
-			obj.crear();
-			system("pause");
-		}
-		if (opP == 3) {
-
-			system("cls");
-			Proveedor Pue1 = Proveedor();
-			Pue1.leer();
-
-			cout << "<<<<<Editar Proveedor" << endl;
-			cout << "Ingresa el id del proveedor" << endl;
-			cin >> idProveedor;
-			cout << "Ingresa el nombre del proveedor" << endl;
-			cin >> proveedor;
-			cout << "Ingresa el nit del proveedor" << endl;
-			cin >> nit;
-			cout << "Ingresa la direccion del proveedor" << endl;
-			cin >> direccion;
-			cout << "Ingresa el telefono del proveedor" << endl;
-			cin >> telefono;
-			
-			Proveedor obj = Proveedor(idProveedor, proveedor, nit, direccion, telefono);
-			obj.actualizar();
-				
-			system("pause");
-		}
-		if (opP == 4) {
-
-			Proveedor Pue1 = Proveedor();
-			Pue1.leer();
-			cout << "<<<<<Eliminar Proveedor" << endl;
-			cout << "Ingresa el Codigo del Proveedor a eliminar" << endl;
-			cin >> idProveedor;
-			Proveedor obj = Proveedor(idProveedor, proveedor, nit, direccion, telefono);
-			obj.eliminar();
-		}
-
-	} while (opP != 5);
-
-	system("pause");
-
-
-}
-
-void ingresoCompra() {
-	string fecha_orden;
-	float precio_costo = 0.00;
-	int idCompra = 0, no_orden_compra = 0, idProveedor = 0, idreq = 0, idCompra_detalle = 0, idProducto = 0, cantidad = 0;
-	system("cls");
-	cout << "<<<<<Ingresar Compra" << endl;
-	cout << "Ingresa el No. Orden del proveedor" << endl;
-	cin >> no_orden_compra;
-
-	Proveedor pro = Proveedor();
-	pro.leer();
-
-	cout << "Ingresa el id del proveedor" << endl;
-	cin >> idProveedor;
-	cout << "Ingresa la fecha de la orden año/mes/dia" << endl;
-	cin >> fecha_orden;
-
-	Compra obj = Compra(idCompra,fecha_orden,no_orden_compra,idProveedor);
-	obj.crear();
-	
-	idreq >> obj.validarID();
-
-	Compra_detalle cd = Compra_detalle(idCompra_detalle,idCompra,idProducto,cantidad,precio_costo);
-	cd.leer();
-
-
-}
-
-void ingresarDetalle(int idC) {
-
-	string fecha_orden;
-	int idCompra_detalle = 0, idCom = idC, idProducto = 0, cantidad = 0, OPT = 0;
-	float precio_uni = 0.0;
-	system("cls");
-	cout << "<<<<<Ingresar Detalle de la compra" << endl;
-	Producto pro = Producto();
-	pro.leer();
-
-	cout << "Ingresa el id. del producto" << endl;
-	cin >> idProducto;
-	cout << "Ingresa la cantidad" << endl;
-	cin >> cantidad;
-	cout << "Ingresa el precio de costo unitario" << endl;
-	cin >> precio_uni;
-	Compra_detalle obj = Compra_detalle(idCompra_detalle,idCom,idProducto,cantidad,precio_uni);
-	obj.crear();
-
-
-
-}
-
-void menuCompras() {
-	float precio_cost = 0.00;
-	string fecha_orden;
-	int idCompra = 0, idComDe = 0, idProducto = 0, cantidad = 0, no_orden_compra = 0, idProveedor = 0, opP = 0, idR = 0;
-	
-
-	do {
-		opP = 0;
-		system("cls");
-		cout << "Catalogo de Compras" << endl;
-		cout << "1.Ver Registro" << endl;
-		cout << "2.Crear" << endl;
-		cout << "3.Editar registro" << endl;
-		cout << "4.Eliminar registro" << endl;
-		cout << "5.Salir al menu principal" << endl;
-		cin >> opP;
-
-		if (opP == 1) {
-			system("cls");
-			cout << "<<<<<Ver registros>>>>>" << endl;
-			Compra Pue = Compra();
-			Pue.leer();
-			system("pause");
-		}
-		if (opP == 2) {
-			
-			ingresoCompra();
-			Compra obj = Compra();
-			idR << obj.validarID();
-
-
-			Compra_detalle obj2 = Compra_detalle(idComDe,idR,idProducto,cantidad,precio_cost);
-			obj2.leer();
-
-
-			system("pause");
-		}
-		/*if (opP == 3) {
-
-			system("cls");
-			Proveedor Pue1 = Proveedor();
-			Pue1.leer();
-
-			cout << "<<<<<Editar Proveedor" << endl;
-			cout << "Ingresa el id del proveedor" << endl;
-			cin >> idProveedor;
-			cout << "Ingresa el nombre del proveedor" << endl;
-			cin >> proveedor;
-			cout << "Ingresa el nit del proveedor" << endl;
-			cin >> nit;
-			cout << "Ingresa la direccion del proveedor" << endl;
-			cin >> direccion;
-			cout << "Ingresa el telefono del proveedor" << endl;
-			cin >> telefono;
-
-			Proveedor obj = Proveedor(idProveedor, proveedor, nit, direccion, telefono);
-			obj.actualizar();
-
-			system("pause");
-		}
-		if (opP == 4) {
-
-			Proveedor Pue1 = Proveedor();
-			Pue1.leer();
-			cout << "<<<<<Eliminar Proveedor" << endl;
-			cout << "Ingresa el Codigo del Proveedor a eliminar" << endl;
-			cin >> idProveedor;
-			Proveedor obj = Proveedor(idProveedor, proveedor, nit, direccion, telefono);
-			obj.eliminar();
-		}*/
-
-	} while (opP != 5);
-
-	system("pause");
-}
+void menuProveedores(){}
 
 int main()
 {
@@ -698,14 +471,15 @@ int main()
 							menuMarcas();
 							break;
 						case 5:
-							menuProducto();
+							menuProductos();
 							break;
 						case 6:
 							menuProveedores();
 							break;
-						case 7:
-							menuCompras();
-							break;
+
+
+
+
 						default:
 						break;
 					};

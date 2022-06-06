@@ -3,25 +3,39 @@
 #include "ConexionBD.h"
 #include <string>
 using namespace std;
-class Marca
+class Productos
 {
-protected: string marcas;
-		 int idMarca = 0;
+protected: string producto, descripcion, fecha_ingreso;
+		 int idMarca = 0, idProducto = 0, existencia = 0;
+		 float precio_costo = 0.0, precio_venta = 0.0;
 
-public:	Marca() {}
+public:	Productos() {}
 
-	  Marca(int idm, string mar) {
-		  idMarca = idm;
-		  marcas = mar;
+	  Productos(int idP, string pro, string des, string fi, int idM, int exi, double pc, double pv) {
+		  idProducto = idP;
+		  idMarca = idM;
+		  descripcion = des;
+		  producto = pro;
+		  fecha_ingreso = fi;
+		  existencia = exi;
+		  precio_costo = pc;
+		  precio_venta = pv;
 	  }
 
 	  void crear() {
 		  int q_estado;
 		  ConexionBD cn = ConexionBD();
 		  cn.abrir_conexion();
+		  string im = to_string(idMarca);
+		  string e = to_string(existencia);
+		  string p_c = to_string(precio_costo);
+		  string p_v = to_string(precio_venta);
+
+
+
 
 		  if (cn.getConectar()) {
-			  string insert = "INSERT INTO marcas(marca)values('" + marcas + "');";
+			  string insert = "INSERT INTO productos(producto,idMarca,descripcion,precio_costo,precio_venta, existencia,fecha_ingreso)values('" + producto + "'," + im + ", '" + descripcion + "', " + p_c + ", " + p_v + ", " + e + ", '" + fecha_ingreso + "'); ";
 			  const char* i = insert.c_str();
 			  // executar el query
 			  q_estado = mysql_query(cn.getConectar(), i);
@@ -44,8 +58,8 @@ public:	Marca() {}
 		  ConexionBD cn = ConexionBD();
 		  cn.abrir_conexion();
 		  if (cn.getConectar()) {
-			  string ID = to_string(idMarca);
-			  string insert = "DELETE FROM marcas WHERE idMarca = '" + ID + "';";
+			  string ID = to_string(idProducto);
+			  string insert = "DELETE FROM productos WHERE idProducto = '" + ID + "';";
 			  const char* i = insert.c_str();
 			  // executar el query
 			  q_estado = mysql_query(cn.getConectar(), i);
@@ -70,14 +84,14 @@ public:	Marca() {}
 		  cn.abrir_conexion();
 
 		  if (cn.getConectar()) {
-			  string consulta = "select * from marcas";
+			  string consulta = "select p.idProducto,p.producto,marca,p.descripcion,p.precio_costo,p.precio_venta,p.existencia,p.fecha_ingreso from productos p left join marcas m on m.idMarca = p.idProducto";
 			  const char* c = consulta.c_str();
 			  q_estado = mysql_query(cn.getConectar(), c);
 			  if (!q_estado) {
 				  resultado = mysql_store_result(cn.getConectar());
-				  cout << "------------Marcas---------------" << endl;
+				  cout << "------------Productos---------------" << endl;
 				  while (fila = mysql_fetch_row(resultado)) {
-					  cout << "Codigo: " << fila[0] << " " << "Nombre: " << fila[1] << endl;
+					  cout << "Id: " << fila[0] << " " << "Producto: " << fila[1] << " " << "Marca: " << fila[2] << " " << "Descripcion: " << fila[3] << " " << "Precio Costo: " << fila[4] << " " << "Precio Venta:" << fila[5] << " " << "Existencia: " << fila[6] << " " << "Fecha Ingreso: " << fila[7] << endl;
 				  }
 			  }
 			  else {
@@ -95,11 +109,25 @@ public:	Marca() {}
 		  int q_estado;
 		  ConexionBD cn = ConexionBD();
 		  cn.abrir_conexion();
+		  string im = to_string(idMarca);
+		  string e = to_string(existencia);
+		  string p_c = to_string(precio_costo);
+		  string p_v = to_string(precio_venta);
+
 		  if (cn.getConectar()) {
 			  string ID = to_string(idMarca);
 
-			  string insert = "UPDATE marcas SET marca = '" + marcas + "'" +
-				  "WHERE idMarca = '" + ID + "'";
+			  string insert = "UPDATE productos SET producto = '" + producto + "'," +
+				  "idMarca = " + im + "," +
+				  "descripcion = '" + descripcion + "'," +
+				  "precio_costo = " + p_c + "," +
+				  "precio_venta = " + p_v + "," +
+				  "existencia = " + e + "," +
+				  "fecha_ingreso = '" + fecha_ingreso + "'" +
+				  "WHERE idEmpleado = '" + ID + "'";
+
+
+
 			  const char* i = insert.c_str();
 			  // executar el query
 			  q_estado = mysql_query(cn.getConectar(), i);
